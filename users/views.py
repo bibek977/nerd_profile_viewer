@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 
 def index(request):
+    
     user = Profile.objects.all()
     context = {
         'user' : user
