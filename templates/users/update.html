@@ -1,0 +1,47 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+    User Login
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+
+  <form class="m-5" method="post" enctype="multipart/form-data" action={% url 'user-update'%}>
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="hidden" id="my-id" name = 'id' value="{{ user.id }}">
+    <label for="name" class="form-label">Full Name</label>
+    <input type="text" name='name', class="form-control" id='name' value={{user.name}}>
+    </div>
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={{user.email}}>
+    <div id="emailHelp" class="form-text" >We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="photo" class="form-label">Image</label>
+    <input type="file" id="photo" name='photo' class="form-control" value={{user.phone}}>
+  </div>
+  <div class="mb-3">
+    <label for="number" class="form-label">Phone</label>
+    <input type="number" name='phone', class="form-control" id='number' value={{user.phone}}>
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input type="number" name='age', class="form-control" id='age' value={{user.age}}>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name='location', class="form-control" id='location' value={{user.location}}>
+        </div>
+
+
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+  
+{% endblock body %}
+

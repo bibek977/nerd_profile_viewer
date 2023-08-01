@@ -1,0 +1,65 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+    User Home
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static '../static/css/index.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+
+    </style>
+{% endblock stylesheet %}
+
+
+{% block body %}
+
+    {% load static %}
+    {% if user %}
+    <div class="containers">
+      <!-- <div class="card-groups"> -->
+        {% for i in user %}
+
+          <div class="cards">
+              <div class="cards-body">
+               
+                <div class="img">
+                <img src="{% static 'images/dummy.webp'%}" alt="profile pic" heigth="`100" width="100">
+              </div>
+              <div class="profile-name">
+                <h3>{{i.name}}</h3>
+              </div>
+              <div class="profile-desc">
+               <p><i class="fa-regular fa-envelope"></i> {{i.email}}</p>
+                <p><i class="fa-solid fa-phone"></i> {{i.phone}}</p>
+                <p><i class="fa-solid fa-location-dot"></i> {{i.location}}</p>
+              </div>
+
+              <div class="buttons">
+                <form class="" enctype="multipart/form-data" method="post" action="{% url 'user-edit'%}">
+                  {% csrf_token %}
+                  <input type="hidden" id="my-id" name = 'id' value="{{ i.id }}">
+                <button class="btn">Edit Profile</button>
+              </form>
+              <form class="" enctype="multipart/form-data" method="post" action="{% url 'user-delete'%}">
+                {% csrf_token %}
+                <input type="hidden" id="my-id" name = 'id' value="{{ i.id }}">
+              <button class="btn">Delete Profile</button>
+            </form>
+              </div>
+              </div>
+          </div>
+          
+
+        {% endfor %}
+      <!-- </div> -->
+    </div>
+        {% else %}
+        <h1>No data </h1>
+    {% endif %}
+
+
+{% endblock body %}
