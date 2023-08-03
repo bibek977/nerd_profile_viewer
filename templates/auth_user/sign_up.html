@@ -12,22 +12,23 @@
     <div class="container bg-light mt-5 pt-3">
 
     
-    <form action="{% url 'user_login' %}" method="post" enctype="multipart/form-data" novalidate>
+    <form action="{% url 'user_sign_up' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {% for i in forms %}
             {{i.label_tag}} {{i}} {{i.errors|striptags}} <br></br>
         {% endfor %}
-    <button type="submit">Log In</button>
+    <button type="submit">Sign Up</button>
 
     </form>
-
-    {% if forms.non_field_errors %}
-        {% for m in forms.non_field_errors %}
+    {% if messages %}
+        {% for m in messages %}
             <small {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</small>
         {% endfor %}
     {% endif %}
+
     <br/>
-    <a href="{% url 'user_sign_up' %}">Sign Up </a>
+    <a href="{% url 'user_login' %}">Log In</a>
+
 </div>
 
 
