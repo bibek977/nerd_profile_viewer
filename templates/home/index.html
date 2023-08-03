@@ -10,6 +10,8 @@
     
 {% block body %}
 
+    <div class="container">
+
 
     {% if messages %}
     <div class="user">
@@ -19,9 +21,23 @@
 </div>
 {% endif %}
 
-<div class='.container'>
-    <h1>This is the main body page</h1>
-    <h5>{{user}}</h5>
+
+<div class="text-center my-5">
+    <h1>Hello, Mr. <b class="text-danger">{{user}}</b></h1>
+</div>
+   <form action="" method="post" novalidate>
+    {% csrf_token %}
+
+<div class="container">
+    {% for i in forms %}
+    {{i.label_tag}} 
+    {{i}}
+    {{i.errors|striptags}}
+    <br/>
+    {% endfor %}
+</div>
+{% comment %} <button type="submit">Submit</button> {% endcomment %}
+</form> 
 </div>
 
 

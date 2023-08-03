@@ -11,10 +11,15 @@
 {% block body %}
     <div class="container bg-light mt-5 pt-3">
 
-    
+        <div class="text-center fw-bold my-5">
+            <h1>Update Data with simple validation</h1>
+        </div>
+
     <form action="{% url 'user-validate' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {{forms.as_p}}
+
+
     <button type="submit">Sign Up</button>
 
     </form>

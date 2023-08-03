@@ -11,6 +11,9 @@
 {% block body %}
     <div class="container bg-light mt-5 pt-3">
 
+        <div class="text-center fw-bold my-5">
+            <h1>Sign up for User</h1>
+        </div>
     
     <form action="{% url 'user_sign_up' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}

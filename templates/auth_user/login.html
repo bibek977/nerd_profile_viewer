@@ -10,10 +10,21 @@
 
 {% block body %}
     <div class="container bg-light mt-5 pt-3">
-
+        {% if messages %}
+        <div class="user">
+        {% for m in messages %}
+            <h1 {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</h1>
+        {% endfor %}
+    </div>
+    {% endif %}
     
     <form action="{% url 'user_login' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+
+        <div class="text-center fw-bold my-5">
+            <h1>Log In</h1>
+        </div>
+
         {% for i in forms %}
             {{i.label_tag}} {{i}} {{i.errors|striptags}} <br></br>
         {% endfor %}

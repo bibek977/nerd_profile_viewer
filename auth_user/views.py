@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
+from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 
 def user_sign_up(request):
     if not request.user.is_authenticated:
@@ -44,5 +44,36 @@ def user_logout(request):
     return redirect('user_login')
 
 def user_change_pass(request):
-    forms = PasswordChangeForm(request.user)
-    return render(request, 'auth_user/change_pass.html', {'forms' : forms})
+    if request.user.is_authenticated:
+        
+        if request.method == "POST":
+            forms = PasswordChangeForm(user=request.user, data=request.POST)
+            if forms.is_valid():
+                forms.save()
+                update_session_auth_hash(request, request.user)
+                messages.success(request, f"Password changed for {request.user}")
+                # return redirect('user_login')
+                return redirect('home')
+        else:
+            forms = PasswordChangeForm(user=request.user)
+        return render(request, 'auth_user/change_pass.html', {'forms' : forms})
+    else:
+        return redirect('user_login')
+    
+def user_set_pass(request):
+    if request.user.is_authenticated:
+        
+        if request.method == "POST":
+            forms = SetPasswordForm(user=request.user, data=request.POST)
+            if forms.is_valid():
+                forms.save()
+                update_session_auth_hash(request, request.user)
+                messages.success(request, f"Password changed for {request.user}")
+                # return redirect('user_login')
+                return redirect('home')
+        else:
+            forms = SetPasswordForm(user=request.user)
+        return render(request, 'auth_user/set_pass.html', {'forms' : forms})
+    else:
+        return redirect('user_login')
+    

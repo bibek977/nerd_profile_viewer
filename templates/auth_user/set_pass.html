@@ -4,10 +4,11 @@
     <div class="container">
 
         <div class="text-center fw-bold my-5">
-            <h1>Change passwod with old password</h1>
+            <h1>Change passwod without old password</h1>
         </div>
 
-    <form action="{% url 'user_change_pass' %}" method="post" novalidate>
+
+    <form action="{% url 'user_set_pass' %}" method="post" novalidate>
         {% csrf_token %}
         <!-- {{forms.as_p}} -->
         {% for i in forms %}
