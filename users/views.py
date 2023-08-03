@@ -18,7 +18,7 @@ def login(request):
         phone = data['phone']
         age = data['age']
         location = data['location']
-
+        print(photo)
         profile = Profile(name=name, photo=photo , email=email,  location=location,phone=phone, age=age)
         profile.save()
 
@@ -32,6 +32,7 @@ def edit(request):
         id = data['id']
         print(id)
         user = Profile.objects.get(id=id)
+        print(user.photo)
         print("got is")
         context = {
             'user' : user
@@ -50,7 +51,7 @@ def update(request):
         age = data['age']
         location = data['location']
 
-        user = Profile.objects.filter(id = id).update(name=name, email=email,  location=location,phone=phone, age=age)
+        user = Profile.objects.filter(id = id).update(name=name, email=email, location=location,phone=phone, age=age)
         # user.save()
 
         return redirect('user-index')
