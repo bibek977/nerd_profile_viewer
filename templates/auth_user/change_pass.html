@@ -1,0 +1,16 @@
+{% extends 'home/base.html' %}
+
+{% block body %}
+    <div class="container">
+
+    <form action="{% url 'user_change_pass' %}" method="post" novalidate>
+        {% csrf_token %}
+        <!-- {{forms.as_p}} -->
+        {% for i in forms %}
+            {{i.label_tag}} {{i}} <br></br> {{i.errors | striptags}}
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock body %}
+

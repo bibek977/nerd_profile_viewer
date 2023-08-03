@@ -1,7 +1,7 @@
-{% extends '../users/base.html' %}
+{% extends 'home/base.html' %}
 {% load static %}
 {% block title %}
-    User Login
+    Validate Form
 {% endblock title %}
 
 {% block style %}
@@ -12,7 +12,7 @@
     <div class="container bg-light mt-5 pt-3">
 
     
-    <form action="{% url 'user_login' %}" method="post" enctype="multipart/form-data" novalidate>
+    <form action="{% url 'user-validate' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {{forms.as_p}}
     <button type="submit">Sign Up</button>

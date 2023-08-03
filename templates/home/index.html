@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+{% extends 'home/base.html' %}
 
-    <style>
-        body{
-            background-color: aqua;
-            max-height: 80vh;
-            width: 100%;
-        }
-        .container{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>This is the main body page</h1>
-    </div>
-</body>
-</html>
+{% block title %}
+    Nerd Platoon Intern
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+    
+{% block body %}
+
+
+    {% if messages %}
+    <div class="user">
+    {% for m in messages %}
+        <h1 {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</h1>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class='.container'>
+    <h1>This is the main body page</h1>
+    <h5>{{user}}</h5>
+</div>
+
+
+{% endblock body %}
+

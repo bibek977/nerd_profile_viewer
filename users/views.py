@@ -1,15 +1,21 @@
 from django.shortcuts import render, redirect
 from .models import *
+from .forms import *
 
 def index(request):
-    
-    user = Profile.objects.all()
-    context = {
-        'user' : user
-    }
-    return render(request, 'users/index.html', context=context)
+    if request.user.is_authenticated:
+        
+        
+        user = Profile.objects.all()
+        context = {
+            'user' : user
+        }
+        return render(request, 'users/index.html', context=context)
 
-def login(request):
+    else:
+        return redirect("user_login")
+
+def add(request):
     if request.method == "POST":
         data = request.POST
         name = data['name']
@@ -65,3 +71,23 @@ def delete(request):
 
         return redirect('user-index')   
     return render(request, 'users/index.html')
+
+
+def validate(request):
+    if request.method == "POST":
+        form = ValidateForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("form validate")
+            data = request.POST
+            name = data['name']
+            email = data['email']
+            phone = data['phone']
+            photo = form.cleaned_data['photo']
+            age = data['age']
+            location = data['location']
+            profile = Profile(name=name, email=email, photo=photo, location=location,phone=phone, age=age)
+            profile.save()
+            return redirect('user-index')
+    else:
+        form = ValidateForm()
+    return render(request, 'users/validate.html', {'forms' : form})
