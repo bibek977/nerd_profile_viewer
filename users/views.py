@@ -6,9 +6,10 @@ def index(request):
     if request.user.is_authenticated:
         
         
-        user = Profile.objects.all()
+        profile = Profile.objects.all()
         context = {
-            'user' : user
+            'profile' : profile,
+            'user' : request.user.username
         }
         return render(request, 'users/index.html', context=context)
 
@@ -60,6 +61,7 @@ def update(request):
         user = Profile.objects.filter(id = id).update(name=name, email=email, location=location,phone=phone, age=age)
         # user.save()
 
+        # return render(request, 'users/index.html')
         return redirect('user-index')
     return render(request, 'users/update.html')
 

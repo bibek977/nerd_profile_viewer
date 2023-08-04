@@ -18,11 +18,11 @@
 {% block body %}
 
     {% load static %}
-    {% if user %}
+    {% if profile %}
     <div class="containers">
 
       <!-- <div class="card-groups"> -->
-        {% for i in user %}
+        {% for i in profile %}
 
           <div class="cards">
               <div class="cards-body">
@@ -40,16 +40,24 @@
               </div>
 
               <div class="buttons">
+                {% if perms.users.change_profile %}
                 <form class="" enctype="multipart/form-data" method="post" action="{% url 'user-edit'%}">
                   {% csrf_token %}
                   <input type="hidden" id="my-id" name = 'id' value="{{ i.id }}">
                 <button class="btn">Edit Profile</button>
               </form>
+              {% else %}
+              <button class="btn">Like Profile</button>
+              {% endif %}
+              {% if perms.users.delete_profile %}
               <form class="" enctype="multipart/form-data" method="post" action="{% url 'user-delete'%}">
                 {% csrf_token %}
                 <input type="hidden" id="my-id" name = 'id' value="{{ i.id }}">
               <button class="btn">Delete Profile</button>
             </form>
+            {% else %}
+            <button class="btn">Dislike Profile</button>
+            {% endif %}
               </div>
               </div>
           </div>

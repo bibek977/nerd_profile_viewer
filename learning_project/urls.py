@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', home, name='home'),
+    # path('user_detail/<int:id>', user_detail, name="user_detail"),
+    path('user_detail/<str:name>', user_detail, name="user_detail"),
     path('auth_user/', include('auth_user.urls')),
 ]
 

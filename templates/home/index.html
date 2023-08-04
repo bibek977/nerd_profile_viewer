@@ -23,7 +23,7 @@
 
 
 <div class="text-center my-5">
-    <h1>Hello, Mr. <b class="text-danger">{{user}}</b></h1>
+    <h1>Hello, Mr. <b class="text-danger">{{user.username}}</b></h1>
 </div>
    <form action="" method="post" novalidate>
     {% csrf_token %}
@@ -36,8 +36,15 @@
     <br/>
     {% endfor %}
 </div>
-{% comment %} <button type="submit">Submit</button> {% endcomment %}
+<button type="submit">Submit</button>
 </form> 
+
+{% if users %}
+<h1>List of users</h1>
+    {% for u in users %}
+        <a href="{% url 'user_detail' u.username %}" style="text-decoration : none; color : green"><h5><b class="text-danger">{{u.username}}</b></h5></a>
+    {% endfor %}
+{% endif %}
 </div>
 
 

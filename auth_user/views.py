@@ -3,6 +3,7 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
+from django.contrib.auth.models import Group
 
 def user_sign_up(request):
     if not request.user.is_authenticated:
@@ -11,7 +12,12 @@ def user_sign_up(request):
             if forms.is_valid():
                 username = request.POST.get('username')
                 messages.success(request, f"{username} User Created")
-                forms.save()
+                new_user = forms.save()
+
+                #To get the group permission 
+                group=Group.objects.get(name='django')
+                new_user.groups.add(group)
+
                 return redirect("user_login")
         else:
             forms = SignUpForm()
@@ -32,7 +38,8 @@ def user_login(request):
                     login(request, user)
                     messages.success(request, f"Welcome, {user_name}")
                     # return redirect('/')
-                    return render(request, 'home/index.html', {"name" : request.user})
+                    # return render(request, 'home/index.html', {"name" : request.user})
+                    return redirect('home')
         else:
             forms = AuthenticationForm()
         return render(request, 'auth_user/login.html', {'forms': forms})
@@ -77,3 +84,4 @@ def user_set_pass(request):
     else:
         return redirect('user_login')
     
+

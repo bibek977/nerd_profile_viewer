@@ -1,12 +1,12 @@
 {% extends 'home/base.html' %}
 
 {% block title %}
-    User Login
+    Profile Update
 {% endblock title %}
 
 {% block body %}
 <div class="container">
-
+  {% if perms.users.change_profile %}
   <form class="m-5" method="post" enctype="multipart/form-data" action={% url 'user-update'%}>
     {% csrf_token %}
 
@@ -46,6 +46,11 @@
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+{% else %}
+<div class="text-center fw-bold my-5">
+  <h1>No Update Permission for <b class="text-danger">{{request.user}}</b></h1>
+</div>
+{% endif %}
 </div>
   
 {% endblock body %}

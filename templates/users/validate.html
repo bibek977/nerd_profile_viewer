@@ -14,7 +14,7 @@
         <div class="text-center fw-bold my-5">
             <h1>Update Data with simple validation</h1>
         </div>
-
+        {% if perms.users.change_profile %}
     <form action="{% url 'user-validate' %}" method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {{forms.as_p}}
@@ -23,6 +23,11 @@
     <button type="submit">Sign Up</button>
 
     </form>
+    {% else %}
+<div class="text-center fw-bold my-5">
+  <h1>No Validate Permission for <b class="text-danger">{{request.user}}</b></h1>
+</div>
+    {% endif %}
 </div>
 
 

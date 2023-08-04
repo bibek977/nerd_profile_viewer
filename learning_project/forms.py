@@ -10,3 +10,10 @@ class UserProfileForm(UserChangeForm):
         labels = {
             'username' : 'My UserName'
         }
+
+class AdminProfileForm(UserChangeForm):
+    password = None
+
+    class Meta:
+        model = User
+        fields = "__all__"

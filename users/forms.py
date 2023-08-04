@@ -7,6 +7,7 @@ class ProfileForm(ModelForm):
         model = Profile
         # fields = "__all__"
         exclude = ["photo"]
+        
 
 class ValidateForm(forms.Form):
     name = forms.CharField(min_length=5)
