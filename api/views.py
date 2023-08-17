@@ -4,20 +4,28 @@ from .serializers import *
 from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
 
-def home(request):
 
-    intern_all = Intern.objects.all()
-    
-    serializer_all = InternSerializer(intern_all, many=True)
+def api_home(request):
 
-    return JsonResponse(serializer_all.data, safe=False)
+    movie = Movie.objects.all()
+    serializer = MovieSerializer(movie, many=True)
+    # json_data = JSONRenderer().render(serializer.data)
 
-def get_intern(request, pk):
-    intern = Intern.objects.get(id = pk)
-    serializer = InternSerializer(intern)
+    # return HttpResponse(json_data,content_type='application/json')
+    return JsonResponse(serializer.data, safe=False)
+
+# def data_by_name(request,name):
+
+#     movie = Movie.objects.get(title=name)
+#     serializer = MovieSerializer(movie)
+#     json_data = JSONRenderer().render(serializer.data)
+
+#     return HttpResponse(json_data,content_type='application/json')
+
+def data_by_id(request,pk):
+
+    movie = Movie.objects.get(id=pk)
+    serializer = MovieSerializer(movie)
     json_data = JSONRenderer().render(serializer.data)
-    return HttpResponse(json_data, content_type='application/json')
 
-def post_intern(request):
-    if request.method == "POST":
-        pass
+    return HttpResponse(json_data, content_type="application/json")

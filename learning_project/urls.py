@@ -28,7 +28,7 @@ urlpatterns = [
     # path('user_detail/<int:id>', user_detail, name="user_detail"),
     path('user_detail/<str:name>', user_detail, name="user_detail"),
     path('auth_user/', include('auth_user.urls')),
-    path('blog',include('blog.urls')),
+    path('blog/',include('blog.urls')),
     path('api/', include('api.urls'))
 ]
 
